@@ -2,9 +2,9 @@ POST http://localhost:9090/register HTTP/1.1
 content-Type: application/json
 
 {
-    "username": "exampleUsername",
-    "password": "examplePassword",
-    "email": "example@example.com",
+    "username": "Rohan",
+    "password": "Rohannn",
+    "email": "Rohan@example.com",
     "name": "John Doe"
 }
 
@@ -14,6 +14,43 @@ POST http://localhost:9090/login HTTP/1.1
 content-Type: application/json
 
 {
-    "email": "example@example.com",
-    "password": "examplePassword"
+    "email": "Rohan@example.com",
+    "password": "Rohannn"
 }
+
+###
+
+Get  http://localhost:9090/get_user_and_profile
+Content-Type: application/json
+
+{
+    "token": "79780be8016dc12f38ea40d3bd5d3fe18d61d35a801b5e59e1c63e184438fb58"
+}
+
+###
+POST http://localhost:9090/update_profile_data 
+Content-Type: application/json
+
+{
+    "token": "79780be8016dc12f38ea40d3bd5d3fe18d61d35a801b5e59e1c63e184438fb58",
+    "bio":"",
+    "currentPost": "CTO",
+    "pastWork": [
+        {
+            "company": "Microsoft",
+            "position": "CTO",
+            "years": "2+"
+        }
+    ],
+    "education": [
+        {
+            "school": "IIT",
+            "degree": "B.Tech",
+            "fieldOfStudy": "2015-2019"
+        }
+    ]
+}
+
+
+###
+GET http://localhost:9090/user/get_all_users

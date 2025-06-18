@@ -11,11 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-
-
 app.use(postRoutes);
 app.use(userRoutes);
+app.use(express.static("uploads"));
 
 const start = async () => {
   const connectDB = await mongoose.connect(
