@@ -5,6 +5,7 @@ import crypto from "crypto";
 import PDFDocument from "pdfkit";
 import fs from "fs";
 import ConnectionRequest from "../models/connections.model.js";
+import Post from "../models/posts.model.js";
 
 const convertUserDataToPDF = async (userData) => {
   const doc = new PDFDocument();
@@ -304,3 +305,4 @@ export const acceptConnectionRequest = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
