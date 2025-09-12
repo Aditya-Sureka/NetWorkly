@@ -18,16 +18,47 @@ export const loginUser = createAsyncThunk(
         });
       }
 
-
-      return thunkAPI.fulfillWithValue({ token: response.data.token});
-
+      return thunkAPI.fulfillWithValue({ token: response.data.token });
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "user/register",
+  async (user, thunkAPI) => {
+    try {
+      const request  = await clientServer.post("/register", {
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        name: user.name,
+      });
+      return request.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
 
-export const registerUser = createAsyncThunk(
-  "user/register",
-  async (user, thunkAPI) => {})
+// export const registerUser = createAsyncThunk(
+//   "user/register",
+//   async (user, thunkAPI) => {
+//     try {
+//       const request = await clientServer.post("/register", {
+//         username: user.username,
+//         password: user.password,
+//         email: user.email,
+//         name: user.name,
+//       });
+
+//       return { message: response.data.message };
+//     } catch (err) {
+//       const message =
+//         err?.response?.data?.message || "Something went wrong during registration.";
+//       return thunkAPI.rejectWithValue({ message }); // send error object safely
+//     }
+//   }
+// );

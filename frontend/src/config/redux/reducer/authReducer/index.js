@@ -1,69 +1,69 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "../../action/authAction"
-
+import { loginUser, registerUser } from "../../action/authAction/index.js";
 
 // const { loginUser, registerUser } = require("../../action/authAction/index.js");
 
-
-
 const initialState = {
-    user: [],
-    isError: false,
-    isSuccess: false,
-    iSLoading: false,
-    loggedIn: false,
-    message: "",
-    profileFetched: false,
-    connections: [],
-    conenctionRequest: [],
-}
+  user: [],
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  loggedIn: false,
+  message: "",
+  profileFetched: false,
+  connections: [],
+  connectionRequest: [],
+};
 
-const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-        reset: () => initialState,
-        handleLoginUser: (state) => {
-            state.message = "hello"
-        }
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    reset: () => initialState,
+    handleLoginUser: (state) => {
+      state.message = "hello";
     },
+  },
 
-    extraReducers: (builder) => {
-        builder
-            .addCase(loginUser.pending, (state) => {
-                state.iSLoading = true;
-                state.message = "Logging in...";
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.iSLoading = false;
-                state.isError = false;
-                state.isSuccess = true;
-                state.loggedIn = true;
-                state.message = "Login is Successful";
-            })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.iSLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-            .addCase(registerUser.pending, (state) => {
-                state.iSLoading = true;
-                state.message = "Registering...";
-            })
-            .addCase(registerUser.fulfilled, (state, action) => {
-                state.iSLoading = false;
-                state.isError = false;
-                state.isSuccess = true;
-                state.loggedIn = true;
-                state.message = "Registration is Successful";
-            })
-            .addCase(registerUser.rejected, (state, action) => {
-                state.iSLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
-    }
-})
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+        state.message = "Logging in...";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false; 
+        state.isError = false;
+        state.isSuccess = true;
+        state.loggedIn = true;
+        state.message = "Login is Successful";
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+        state.message = "Registring...";
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.loggedIn = true;
+        state.message = {
+          text: "Registration Successfull",
+          type: "success"
+        };
 
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload || "Registration Failed";
+      });
+  },
+});
 
 export default authSlice.reducer;
