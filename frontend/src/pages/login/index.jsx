@@ -38,7 +38,9 @@ function LoginComponent() {
               {userLoginMethod ? "Sign In" : "Sign Up"}
             </p>
             <p style={{ color: authState.isError ? "red" : "green" }}>
-              {authState.message}
+              {typeof authState.message === 'string' 
+                ? authState.message 
+                : authState.message?.text || authState.message?.message || JSON.stringify(authState.message)}
             </p>
 
             <div className={styles.inputContainers}>

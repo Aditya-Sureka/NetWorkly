@@ -32,7 +32,7 @@ export const authSlice = createSlice({
         state.message = "Logging in...";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false; 
+        state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.loggedIn = true;
@@ -52,16 +52,17 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.loggedIn = true;
-        state.message = {
-          text: "Registration Successfull",
-          type: "success"
-        };
-
+        state.message = action.payload?.message || "Registration Successful";
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload || "Registration Failed";
+        const errorMessage =
+          action.payload?.message || action.payload || "Registration Failed";
+        state.message =
+          typeof errorMessage === "string"
+            ? errorMessage
+            : JSON.stringify(errorMessage);
       });
   },
 });

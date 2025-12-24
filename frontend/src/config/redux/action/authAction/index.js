@@ -29,19 +29,22 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (user, thunkAPI) => {
     try {
-      const request  = await clientServer.post("/register", {
+      const response = await clientServer.post("/register", {
         username: user.username,
         password: user.password,
         email: user.email,
         name: user.name,
       });
-      return request.data;
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(
+        error.response?.data || {
+          message: error.message || "Registration Failed",
+        }
+      );
     }
   }
 );
-
 
 // export const registerUser = createAsyncThunk(
 //   "user/register",
