@@ -45,7 +45,7 @@ README.md
    ```
 2. Start server:
    ```sh
-   npm run dev
+   node server.js
    ```
    The backend runs on [http://localhost:9090](http://localhost:9090).
 
